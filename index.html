@@ -4,8 +4,20 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
 		<title>Nick Hester</title>
+		<link rel="manifest" href="manifest.json">
+		<link rel="import" href="src/my-app.html">
 	</head>
 	<body>
-		
+		<my-app>Aww Yeah</my-app>
+		<script>
+			(function(){
+				var webComponentsSupported = ('regiesterElement' in document && 'import' in document.createElement('link') && 'content' in document.createElement('template'));
+				if (!webComponentsSupported) {
+					var script = document.createElement('script');
+					script.src = 'bower_components/webcomponentsjs/webcomponents.min.js';
+					document.head.appendChild(script);
+				}
+			})();
+		</script>
 	</body>
 </html>
