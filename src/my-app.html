@@ -1,8 +1,27 @@
 <link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="my-header.html">
 <dom-module id="my-app">
 	<template>
-		<style></style>
-		<h1>[[title]]</h1>
+		<style>
+			:host {
+				--primary-text-color: #ccc;
+				--primary-padding: 20px;
+				color: var(--primary-text-color);
+			}
+
+
+			@media (max-width: 900px) {
+				/*h1 {
+					font-size: calc(48px * 0.75);
+				}
+
+				my-logo {
+					transform: scale(0.75, 0.75);
+					padding: calc(var(--primary-padding) * 0.75);
+				}*/
+			}
+		</style>
+		<my-header title="Nick Hester"></my-header>
 	</template>
 	<script>
 		Polymer({
@@ -14,7 +33,16 @@
 					type: String,
 					value: 'Nick Hester'
 				}
-			}
+			},
+			// ready: function() {
+			// 	var headingStyle = {
+			// 		fontSize: '48px'
+			// 	};
+			// 	var me = this.$$('h1');
+			// 	for (i in headingStyle) {
+			// 		me.style[i] = headingStyle[i];
+			// 	}
+			// }
 
 		});
 	</script>
