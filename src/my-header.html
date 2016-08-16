@@ -3,10 +3,22 @@
 <dom-module id="my-header">
 	<template>
 		<style>
+			@keyframes slideright {
+				from {
+					opacity: 0;
+					transform: translateX(-50vw);
+				}
+				to {
+					transform: translateX(0px);
+					opacity: 1;
+				}
+			}
+
 			header {
 				display: flex;
-				flex-wrap: wrap;
 				align-items: center;
+				animation-name: slideright;
+				animation-duration: 800ms;
 			}
 
 			h1 {
@@ -20,6 +32,19 @@
 
 			my-logo {
 				padding: var(--primary-padding);
+			}
+
+
+			@media (max-width: 600px) {
+				h1 {
+					font-size: 32px;
+				}
+			}
+
+			@media (max-width: 390px) {
+				h1 {
+					font-size: 24px;
+				}
 			}
 		</style>
 		<header>
