@@ -5,10 +5,18 @@
 		<meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
 		<title>Nick Hester</title>
 		<link rel="manifest" href="manifest.json">
+		<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400" rel="stylesheet">
 		<link rel="import" href="src/my-app.html">
+		<style>
+			body {
+				margin: 0;
+				font-family: 'Open Sans', Helvetica, Arial, sans-serif;
+				background: #000;
+			}
+		</style>
 	</head>
-	<body>
-		<my-app>Aww Yeah</my-app>
+	<body unresolved>
+		<my-app></my-app>
 		<script>
 			(function(){
 				var webComponentsSupported = ('regiesterElement' in document && 'import' in document.createElement('link') && 'content' in document.createElement('template'));
