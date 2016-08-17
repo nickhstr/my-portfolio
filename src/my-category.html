@@ -1,0 +1,62 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<dom-module id="my-category">
+	<template>
+		<style>
+			h2 {
+				opacity: 0;
+				position: absolute;
+				top: 0px;
+				left: 0px;
+				font-weight: 300;
+				font-size: 64px;
+				color: var(--primary-text-color);
+				margin: 0;
+				text-transform: lowercase;
+			}
+
+			h2:hover {
+				cursor: pointer;
+			}
+
+
+			@media (max-width: 400px) {
+				h2 {
+					font-size: 48px;
+				}
+			}
+		</style>
+		<h2>[[title]]</h2>
+	</template>
+	<script>
+		Polymer({
+
+			is: 'my-category',
+
+			properties: {
+				title: {
+					type: String,
+					value: 'title',
+					notify: true
+				},
+				vertical: {
+					type: Number,
+					value: 0,
+					notify: true
+				},
+				delay: {
+					type: Number,
+					value: 0,
+					notify: true
+				},
+				animationData: {
+					value: {
+						keyframes: {},
+						options: {}
+					},
+					notify: true
+				}
+			}
+
+		});
+	</script>
+</dom-module>
