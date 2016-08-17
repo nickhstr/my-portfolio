@@ -1,51 +1,37 @@
 <link rel="import" href="../bower_components/polymer/polymer.html">
 <link rel="import" href="my-header.html">
+<link rel="import" href="my-category.html">
 <dom-module id="my-app">
 	<template>
 		<style>
 			:host {
 				--primary-text-color: #ccc;
+				--secondary-text-color: #aaa;
 				--primary-padding: 20px;
 				color: var(--primary-text-color);
 			}
 
-			@keyframes slideleft {
-				from {
-					opacity: 0;
-					transform: translateX(150vw);
-				}
-				to {
-					transform: translateX(0px);
-					opacity: 1;
-				}
-			}
-
 			main {
-				display: flex;
-				flex-wrap: wrap;
-				align-items: center;
-				justify-content: space-around;
 				min-height: 100vh;
 				min-width: 100vw;
 			}
 
-			.stuff {
-				padding: var(--primary-padding);
-			}
-
 			h2 {
 				opacity: 0;
+				position: absolute;
+				top: 0px;
+				left: 0px;
 				font-weight: 300;
 				font-size: 64px;
-				color: #bbb;
-				margin: 0.5em;
+				color: var(--primary-text-color);
+				margin: 0;
 				text-transform: lowercase;
-				transition: transform 300ms ease;
+				/*transition: transform 300ms ease;
 				animation-name: slideleft;
-				animation-duration: 800ms;
+				animation-duration: 800ms;*/
 			}
 
-			h2:nth-child(1) {
+			/*h2:nth-child(1) {
 				animation-delay: 100ms;
 			}
 
@@ -55,10 +41,10 @@
 
 			h2:nth-child(3) {
 				animation-delay: 300ms;
-			}
+			}*/
 
 			h2:hover {
-				transform: scale(1.1, 1.1);
+				cursor: pointer;
 			}
 
 
@@ -77,19 +63,12 @@
 				:host {
 					--logo-width: 32px;
 				}
-
-				h2 {
-					font-size: 48px;
-				}
-			}
 		</style>
-		<main>
-			<my-header title="Nick Hester"></my-header>
-			<div class="stuff">
-				<h2>Portfolio</h2>
-				<h2>Resume</h2>
-				<h2>About</h2>
-			</div>
+		<main id="home">
+			<my-header id="mainTitle" title="Nick Hester"></my-header>
+			<my-category title="portfolio" on-tap="navigate"></my-category>
+			<my-category title="resume" on-tap="navigate"></my-category>
+			<my-category title="about" on-tap="navigate"></my-category>
 		</main>
 	</template>
 	<script>
@@ -101,16 +80,126 @@
 				title: {
 					type: String,
 					value: 'Nick Hester'
+				},
+				upTop: {
+					type: Boolean,
+					value: false,
+					notify: true
+				},
+				categories: {
+					type: Array,
+					value: [],
+					notify: true
+				},
+				headerAnimationData: {
+					value: {
+						keyframes: {},
+						options: {}
+					},
+					notify: true
 				}
 			},
 
-			listeners: {
-				'animationend': '_stayOpaque'
+			ready: function() {
+				var self = this;
+				var header = self.$.mainTitle.children[0];
+				var categories = document.querySelectorAll('my-category');
+				var el = categories[0].children[0];
+
+				self.headerAnimationData.keyframes = {
+					transform: ['translate(-50vw, 15vh)', 'translate(0px, 15vh)'],
+					opacity: [0, 1]
+				};
+				self.headerAnimationData.options = {
+					duration: 800,
+					easing: 'ease',
+					fill: 'forwards'
+				}
+
+				header.animate(self.headerAnimationData.keyframes, self.headerAnimationData.options);
+
+				for (var i = 0; i < categories.length; i ++) {
+					categories[i].vertical = 30 + (i * 12);
+					categories[i].delay = i * 100;
+
+					categories[i].children[0].animate({
+						transform: ['translate(150vw, ' + categories[i].vertical + 'vh)','translate(calc(100vw - 300px), ' + categories[i].vertical + 'vh)'],
+						opacity: [0, 1]
+					}, {
+						duration: 800,
+						delay: categories[i].delay,
+						easing: 'ease',
+						fill: 'forwards'
+					});
+				}
 			},
 
-			_stayOpaque: function(e) {
-				if (e.target.localName === 'h2') {
-					e.target.style.opacity = '1';
+			navigate: function(e) {
+				var el = e.target,
+					vert = e.target.parentElement.vertical,
+					header = this.$.mainTitle.children[0],
+					others = [];
+				var all = document.querySelectorAll('my-category');
+
+				for (var i = 0; i < all.length; i++) {
+					if (all[i] !== e.target.parentElement) {
+						others.push(all[i]);
+					}
+				}
+
+				if (this.upTop === false) {
+					header.animate(this.headerAnimationData.keyframes, {
+						duration: 300,
+						easing: 'ease',
+						fill: 'forwards',
+						direction: 'reverse'
+					});
+					for (var i = 0; i < others.length; i++) {
+						others[i].children[0].animate({
+							transform: ['translate(150vw, ' + others[i].vertical + 'vh)','translate(calc(100vw - 300px), ' + others[i].vertical + 'vh)'],
+							opacity: [0, 1]
+						}, {
+							duration: 300,
+							easing: 'ease',
+							fill: 'forwards',
+							direction: 'reverse'
+						});
+					}
+					el.animate({
+						transform: ['translate(calc(100vw - 300px), ' + vert + 'vh) scale(1, 1)', 'translate(20vw, -5vh) scale(3, 3)'],
+					}, {
+						duration: 300,
+						easing: 'ease',
+						fill: 'forwards'
+					});
+					this.upTop = true;
+				}
+
+				else if (this.upTop === true) {
+					header.animate(this.headerAnimationData.keyframes, {
+						duration: 800,
+						easing: 'ease',
+						fill: 'forwards'
+					});
+					for (var i = 0; i < others.length; i++) {
+						others[i].children[0].animate({
+							transform: ['translate(150vw, ' + others[i].vertical + 'vh)','translate(calc(100vw - 300px), ' + others[i].vertical + 'vh)'],
+							opacity: [0, 1]
+						}, {
+							duration: 800,
+							delay: others[i].delay,
+							easing: 'ease',
+							fill: 'forwards'
+						});
+					}
+					el.animate({
+						transform: ['translate(20vw, -5vh) scale(3, 3)', 'translate(calc(100vw - 300px), ' + vert + 'vh) scale(1, 1)'],
+					}, {
+						duration: 300,
+						easing: 'ease',
+						fill: 'forwards'
+					});
+					this.upTop = false;
 				}
 			}
 
