@@ -8,10 +8,11 @@
 				top: 0px;
 				left: 0px;
 				font-weight: 300;
-				font-size: 64px;
+				font-size: 4em;
 				color: var(--primary-text-color);
 				margin: 0;
 				text-transform: lowercase;
+				will-change: transform;
 			}
 
 			h2:hover {
@@ -21,11 +22,11 @@
 
 			@media (max-width: 400px) {
 				h2 {
-					font-size: 48px;
+					font-size: 3em;
 				}
 			}
 		</style>
-		<h2>[[title]]</h2>
+		<h2 tabindex$="[[index]]" on-keydown="keydownClick" role="button">[[title]]</h2>
 	</template>
 	<script>
 		Polymer({
@@ -48,12 +49,16 @@
 					value: 0,
 					notify: true
 				},
-				animationData: {
-					value: {
-						keyframes: {},
-						options: {}
-					},
+				index: {
+					type: Number,
+					value: 0,
 					notify: true
+				}
+			},
+
+			keydownClick: function(e) {
+				if (e.which === 13 || e.which === 32) {
+					e.target.click();
 				}
 			}
 
