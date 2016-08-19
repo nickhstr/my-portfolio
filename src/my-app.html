@@ -1,4 +1,7 @@
 <link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/neon-animation/neon-animated-pages.html">
+<link rel="import" href="../bower_components/neon-animation/animations/fade-in-animation.html">
+<link rel="import" href="../bower_components/neon-animation/animations/fade-out-animation.html">
 <link rel="import" href="my-header.html">
 <link rel="import" href="my-category.html">
 <dom-module id="my-app">
@@ -26,34 +29,21 @@
 				color: var(--primary-text-color);
 				margin: 0;
 				text-transform: lowercase;
-				/*transition: transform 300ms ease;
-				animation-name: slideleft;
-				animation-duration: 800ms;*/
 			}
 
-			/*h2:nth-child(1) {
-				animation-delay: 100ms;
+			.home {
+				margin: 1em;
 			}
 
-			h2:nth-child(2) {
-				animation-delay: 200ms;
-			}
-
-			h2:nth-child(3) {
-				animation-delay: 300ms;
-			}*/
-
-			h2:hover {
-				cursor: pointer;
+			.tab {
+				display: inline-block;
+				font-size: 2em;
+				text-transform: uppercase;
+				margin: 0.3em;
 			}
 
 
 			@media (max-width: 600px) {
-				main {
-					align-items: flex-start;
-					justify-content: flex-start;
-				}
-
 				:host {
 					--logo-width: 48px;
 				}
@@ -64,11 +54,23 @@
 					--logo-width: 32px;
 				}
 		</style>
-		<main id="home">
+		<main>
 			<my-header id="mainTitle" title="Nick Hester"></my-header>
-			<my-category title="portfolio" on-tap="navigate"></my-category>
-			<my-category title="resume" on-tap="navigate"></my-category>
-			<my-category title="about" on-tap="navigate"></my-category>
+			<nav>
+				<my-category title="portfolio" on-tap="navigate"></my-category>
+				<my-category title="resume" on-tap="navigate"></my-category>
+				<my-category title="about" on-tap="navigate"></my-category>
+			</nav>
+			<neon-animated-pages
+			selected="[[page]]"
+			attr-for-selected="name"
+			entry-animation="fade-in-animation"
+			exit-animation="fade-out-animation">
+				<section class="home" name="" aria-label="home view"></section>
+				<my-portfolio name="portfolio" aria-label="portfolio section"></my-portfolio>
+				<my-resume name="resume" aria-label="resume section"></my-resume>
+				<my-about name="about" aria-label="about section"></my-about>
+			</neon-animated-pages>
 		</main>
 	</template>
 	<script>
@@ -77,13 +79,19 @@
 			is: 'my-app',
 
 			properties: {
-				title: {
+				page: {
 					type: String,
-					value: 'Nick Hester'
+					value: '',
+					notify: true,
+					observer: '_pageChanged'
 				},
 				upTop: {
 					type: Boolean,
 					value: false,
+					notify: true
+				},
+				offset: {
+					type: String,
 					notify: true
 				},
 				categories: {
@@ -93,41 +101,44 @@
 				},
 				headerAnimationData: {
 					value: {
-						keyframes: {},
-						options: {}
+						keyframes: {
+							transform: ['translate(-50vw, 15vh)', 'translate(0px, 15vh)'],
+							opacity: [0, 1]
+						},
+						options: {
+							duration: 800,
+							easing: 'ease',
+							fill: 'forwards'
+						}
 					},
 					notify: true
 				}
 			},
 
-			ready: function() {
-				var self = this;
-				var header = self.$.mainTitle.children[0];
-				var categories = document.querySelectorAll('my-category');
-				var el = categories[0].children[0];
-
-				self.headerAnimationData.keyframes = {
-					transform: ['translate(-50vw, 15vh)', 'translate(0px, 15vh)'],
-					opacity: [0, 1]
-				};
-				self.headerAnimationData.options = {
-					duration: 800,
-					easing: 'ease',
-					fill: 'forwards'
+			_pageChanged: function(newPage, oldPage) {
+				if (newPage) {
+					this.importHref(
+						this.resolveUrl('my-' + newPage + '.html'), null, null, true);
 				}
+			},
 
-				header.animate(self.headerAnimationData.keyframes, self.headerAnimationData.options);
+			ready: function() {
+				var header = this.$.mainTitle.children[0];
+				this.categories = document.querySelectorAll('my-category');
+				this.offset = '100vw - 5em';
 
-				for (var i = 0; i < categories.length; i ++) {
-					categories[i].vertical = 30 + (i * 12);
-					categories[i].delay = i * 100;
+				header.animate(this.headerAnimationData.keyframes, this.headerAnimationData.options);
 
-					categories[i].children[0].animate({
-						transform: ['translate(150vw, ' + categories[i].vertical + 'vh)','translate(calc(100vw - 300px), ' + categories[i].vertical + 'vh)'],
+				for (var i = 0; i < this.categories.length; i ++) {
+					this.categories[i].vertical = ((i * 1.4)+ 5) + 'em';
+					this.categories[i].delay = i * 100;
+
+					this.categories[i].children[0].animate({
+						transform: ['translate(150vw, ' + this.categories[i].vertical + ')','translate(calc(' + this.offset + '), ' + this.categories[i].vertical + ')'],
 						opacity: [0, 1]
 					}, {
 						duration: 800,
-						delay: categories[i].delay,
+						delay: this.categories[i].delay,
 						easing: 'ease',
 						fill: 'forwards'
 					});
@@ -139,15 +150,16 @@
 					vert = e.target.parentElement.vertical,
 					header = this.$.mainTitle.children[0],
 					others = [];
-				var all = document.querySelectorAll('my-category');
 
-				for (var i = 0; i < all.length; i++) {
-					if (all[i] !== e.target.parentElement) {
-						others.push(all[i]);
+				for (var i = 0; i < this.categories.length; i++) {
+					if (this.categories[i] !== e.target.parentElement) {
+						others.push(this.categories[i]);
+						this.categories[i].index = -1;
 					}
 				}
 
 				if (this.upTop === false) {
+					this.setPage(e.target.parentElement.title);
 					header.animate(this.headerAnimationData.keyframes, {
 						duration: 300,
 						easing: 'ease',
@@ -155,8 +167,9 @@
 						direction: 'reverse'
 					});
 					for (var i = 0; i < others.length; i++) {
+						others[i].index = -1;
 						others[i].children[0].animate({
-							transform: ['translate(150vw, ' + others[i].vertical + 'vh)','translate(calc(100vw - 300px), ' + others[i].vertical + 'vh)'],
+							transform: ['translate(150vw, ' + others[i].vertical + ')','translate(calc(' + this.offset + '), ' + others[i].vertical + ')'],
 							opacity: [0, 1]
 						}, {
 							duration: 300,
@@ -166,7 +179,8 @@
 						});
 					}
 					el.animate({
-						transform: ['translate(calc(100vw - 300px), ' + vert + 'vh) scale(1, 1)', 'translate(20vw, -5vh) scale(3, 3)'],
+						transform: ['translate(calc(' + this.offset + '), ' + vert + ') scale(1, 1)', 'translate(2em, -0.8em) scale(3, 3)'],
+						opacity: [1, 0.5]
 					}, {
 						duration: 300,
 						easing: 'ease',
@@ -176,14 +190,16 @@
 				}
 
 				else if (this.upTop === true) {
+					this.setPage('');
 					header.animate(this.headerAnimationData.keyframes, {
 						duration: 800,
 						easing: 'ease',
 						fill: 'forwards'
 					});
 					for (var i = 0; i < others.length; i++) {
+						others[i].index = 0;
 						others[i].children[0].animate({
-							transform: ['translate(150vw, ' + others[i].vertical + 'vh)','translate(calc(100vw - 300px), ' + others[i].vertical + 'vh)'],
+							transform: ['translate(150vw, ' + others[i].vertical + ')','translate(calc(' + this.offset + '), ' + others[i].vertical + ')'],
 							opacity: [0, 1]
 						}, {
 							duration: 800,
@@ -193,7 +209,8 @@
 						});
 					}
 					el.animate({
-						transform: ['translate(20vw, -5vh) scale(3, 3)', 'translate(calc(100vw - 300px), ' + vert + 'vh) scale(1, 1)'],
+						transform: ['translate(2em, -0.8em) scale(3, 3)', 'translate(calc(' + this.offset + '), ' + vert + ') scale(1, 1)'],
+						opacity: [0.5, 1]
 					}, {
 						duration: 300,
 						easing: 'ease',
@@ -201,6 +218,10 @@
 					});
 					this.upTop = false;
 				}
+			},
+
+			setPage: function(page) {
+				this.page = page || '';
 			}
 
 		});
