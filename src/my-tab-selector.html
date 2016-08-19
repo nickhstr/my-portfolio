@@ -1,0 +1,75 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/iron-selector/iron-selector.html">
+<link rel="import" href="../bower_components/neon-animation/neon-animated-pages.html">
+<link rel="import" href="../bower_components/neon-animation/animations/fade-in-animation.html">
+<link rel="import" href="../bower_components/neon-animation/animations/fade-out-animation.html">
+<dom-module id="my-tab-selector">
+	<template>
+		<style>
+			section {
+				margin: 0.5em;
+			}
+
+			.tab {
+				display: inline-block;
+				font-size: 2em;
+				text-transform: uppercase;
+				margin: 0.1em;
+				padding: 0;
+				border: none;
+				background-color: transparent;
+				color: var(--primary-text-color);
+				opacity: 0.5;
+				transition: opacity 500ms;
+			}
+
+			.tab:hover {
+				cursor: pointer;
+			}
+
+			.iron-selected {
+				opacity: 1;
+			}
+
+
+			@media (max-width: 400px) {
+				.tab {
+					font-size: 1.5em;
+				}
+			}
+		</style>
+		<section>
+			<iron-selector selected="{{tab}}" attr-for-selected="tabname" role="tablist">
+				<template is="dom-repeat" items="{{tabs}}" as="tabName">
+					<button class="tab" tabname="[[tabName]]" role="tab" aria-label$="[[tabName]]">[[tabName]]</button>
+				</template>
+			</iron-selector>
+			<neon-animated-pages selected="[[tab]]" attr-for-selected="tabview" entry-animation="fade-in-animation" exit-animation="fade-out-animation">
+				<content></content>
+			</neon-animated-pages>
+		</section>
+	</template>
+	<script>
+		Polymer({
+
+			is: 'my-tab-selector',
+
+			properties: {
+				tab: {
+					type: String,
+					notify: true
+				},
+				tabs: {
+					type: Array,
+					notify: true,
+					observer: '_setInitialTab'
+				}
+			},
+
+			_setInitialTab: function(newTabs, oldTabs) {
+				this.tab = newTabs[0];
+			}
+
+		});
+	</script>
+</dom-module>
