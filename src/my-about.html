@@ -1,0 +1,25 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="my-tab-selector.html">
+<dom-module id="my-about">
+	<template>
+		<style></style>
+		<my-tab-selector tabs="[[aboutTabs]]">
+			<div tabview="about me">A little about me.</div>
+			<div tabview="contact">Ways to contact me.</div>
+		</my-tab-selector>
+	</template>
+	<script>
+		Polymer({
+
+			is: 'my-about',
+
+			properties: {
+				aboutTabs: {
+					type: Array,
+					value: ['about me', 'contact']
+				}
+			}
+
+		});
+	</script>
+</dom-module>

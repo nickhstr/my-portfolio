@@ -1,0 +1,25 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="my-tab-selector.html">
+<dom-module id="my-resume">
+	<template>
+		<style></style>
+		<my-tab-selector tabs="[[resumeTabs]]">
+			<div tabview="experience">Experience Section</div>
+			<div tabview="education">Education Section</div>
+		</my-tab-selector>
+	</template>
+	<script>
+		Polymer({
+
+			is: 'my-resume',
+
+			properties: {
+				resumeTabs: {
+					type: Array,
+					value: ['experience', 'education']
+				}
+			}
+
+		});
+	</script>
+</dom-module>

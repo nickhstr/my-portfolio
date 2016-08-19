@@ -1,0 +1,25 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="my-tab-selector.html">
+<dom-module id="my-portfolio">
+	<template>
+		<style></style>
+		<my-tab-selector tabs="[[portfolioTabs]]">
+			<div tabview="swdnd">Senior Web Dev Stuff</div>
+			<div tabview="fend">Front-End Dev Stuff</div>
+		</my-tab-selector>
+	</template>
+	<script>
+		Polymer({
+
+			is: 'my-portfolio',
+
+			properties: {
+				portfolioTabs: {
+					type: Array,
+					value: ['swdnd', 'fend']
+				}
+			}
+
+		});
+	</script>
+</dom-module>
