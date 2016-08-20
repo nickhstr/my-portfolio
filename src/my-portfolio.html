@@ -1,11 +1,18 @@
 <link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
 <link rel="import" href="my-tab-selector.html">
+<link rel="import" href="my-projects.html">
 <dom-module id="my-portfolio">
 	<template>
 		<style></style>
+		<iron-ajax
+			auto
+			url="../data/projects.json"
+			handle-as="json"
+			on-response="projectsResponse"></iron-ajax>
 		<my-tab-selector tabs="[[portfolioTabs]]">
-			<div tabview="swdnd">Senior Web Dev Stuff</div>
-			<div tabview="fend">Front-End Dev Stuff</div>
+			<my-projects tabview="swdnd" projects="[[swdndProjects]]"></my-projects>
+			<my-projects tabview="fend" projects="[[fendProjects]]"></my-projects>
 		</my-tab-selector>
 	</template>
 	<script>
@@ -17,7 +24,21 @@
 				portfolioTabs: {
 					type: Array,
 					value: ['swdnd', 'fend']
+				},
+				swdndProjects: {
+					type: Array,
+					notify: true
+				},
+				fendProjects: {
+					type: Array,
+					notify: true
 				}
+			},
+
+			projectsResponse: function(e) {
+				var response = e.detail.response.projects;
+				this.swdndProjects = response.swdnd;
+				this.fendProjects = response.fend;
 			}
 
 		});
