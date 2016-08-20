@@ -109,7 +109,13 @@
 			ready: function() {
 				var header = this.$.mainTitle.children[0];
 				this.categories = document.querySelectorAll('my-category');
-				this.offset = '100vw - 5em';
+				// this.offset = '100vw - 5em';
+				if (window.innerWidth < 400) {
+					this.offset = (window.innerWidth - 250) + 'px';
+				}
+				else {
+					this.offset = (window.innerWidth - 300) + 'px';
+				}
 
 				header.animate(this.headerAnimationData.keyframes, this.headerAnimationData.options);
 
@@ -118,7 +124,7 @@
 					this.categories[i].delay = i * 100;
 
 					this.categories[i].children[0].animate({
-						transform: ['translate(150vw, ' + this.categories[i].vertical + ')','translate(calc(' + this.offset + '), ' + this.categories[i].vertical + ')'],
+						transform: ['translate(150vw, ' + this.categories[i].vertical + ')','translate(' + this.offset + ', ' + this.categories[i].vertical + ')'],
 						opacity: [0, 1]
 					}, {
 						duration: 800,
@@ -153,7 +159,7 @@
 					for (var i = 0; i < others.length; i++) {
 						others[i].index = -1;
 						others[i].children[0].animate({
-							transform: ['translate(150vw, ' + others[i].vertical + ')','translate(calc(' + this.offset + '), ' + others[i].vertical + ')'],
+							transform: ['translate(150vw, ' + others[i].vertical + ')','translate(' + this.offset + ', ' + others[i].vertical + ')'],
 							opacity: [0, 1]
 						}, {
 							duration: 300,
@@ -163,7 +169,7 @@
 						});
 					}
 					el.animate({
-						transform: ['translate(calc(' + this.offset + '), ' + vert + ') scale(1, 1)', 'translate(2em, -0.8em) scale(3, 3)'],
+						transform: ['translate(' + this.offset + ', ' + vert + ') scale(1, 1)', 'translate(2em, -0.8em) scale(3, 3)'],
 						opacity: [1, 0.5]
 					}, {
 						duration: 300,
@@ -183,7 +189,7 @@
 					for (var i = 0; i < others.length; i++) {
 						others[i].index = 0;
 						others[i].children[0].animate({
-							transform: ['translate(150vw, ' + others[i].vertical + ')','translate(calc(' + this.offset + '), ' + others[i].vertical + ')'],
+							transform: ['translate(150vw, ' + others[i].vertical + ')','translate(' + this.offset + ', ' + others[i].vertical + ')'],
 							opacity: [0, 1]
 						}, {
 							duration: 800,
@@ -193,7 +199,7 @@
 						});
 					}
 					el.animate({
-						transform: ['translate(2em, -0.8em) scale(3, 3)', 'translate(calc(' + this.offset + '), ' + vert + ') scale(1, 1)'],
+						transform: ['translate(2em, -0.8em) scale(3, 3)', 'translate(' + this.offset + ', ' + vert + ') scale(1, 1)'],
 						opacity: [0.5, 1]
 					}, {
 						duration: 300,
