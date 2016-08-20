@@ -44,7 +44,11 @@
 					<button class="tab" tabname="[[tabName]]" role="tab" aria-label$="[[tabName]]">[[tabName]]</button>
 				</template>
 			</iron-selector>
-			<neon-animated-pages selected="[[tab]]" attr-for-selected="tabview" entry-animation="fade-in-animation" exit-animation="fade-out-animation">
+			<neon-animated-pages
+			selected="[[tab]]"
+			attr-for-selected="tabview"
+			entry-animation="fade-in-animation"
+			exit-animation="fade-out-animation">
 				<content></content>
 			</neon-animated-pages>
 		</section>
