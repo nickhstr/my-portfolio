@@ -1,0 +1,67 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<dom-module id="my-tabview-style">
+	<template>
+		<style>
+			section {
+				display: flex;
+				margin: 2em 0.1em;
+			}
+
+			article {
+				display: block;
+				width: 60vw;
+				height: 30vw;
+				overflow: hidden;
+				padding: 0 1em;
+			}
+
+			h3 {
+				font-size: 2.5em;
+				margin: 0;
+				text-transform: uppercase;
+				white-space: nowrap;
+				overflow: hidden;
+				text-overflow: ellipsis;
+			}
+
+			p {
+				color: var(--secondary-text-color);
+				font-weight: 300;
+				font-size: 2em;
+				margin: 0;
+			}
+
+
+			@media (max-width: 900px) {
+				h3 {
+					font-size: 2em;
+				}
+
+				p {
+					font-size: 1.5em;
+				}
+			}
+
+			
+			@media (max-width: 640px) {
+				h3 {
+					font-size: 1.5em;
+				}
+
+				p {
+					font-size: 1.2em;
+				}
+			}
+
+			@media (max-width: 500px) {
+				h3 {
+					font-size: 1.1em;
+				}
+
+				p {
+					font-size: 0.8em;
+				}
+			}
+		</style>
+	</template>
+</dom-module>
