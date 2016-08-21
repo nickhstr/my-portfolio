@@ -9,7 +9,6 @@
 		<style>
 			:host {
 				--primary-text-color: #ccc;
-				--secondary-text-color: #aaa;
 				--primary-padding: 20px;
 				color: var(--primary-text-color);
 			}
@@ -140,6 +139,7 @@
 					vert = e.target.parentElement.vertical,
 					header = this.$.mainTitle.children[0],
 					others = [];
+				el.blur();
 
 				for (var i = 0; i < this.categories.length; i++) {
 					if (this.categories[i] !== e.target.parentElement) {

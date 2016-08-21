@@ -19,12 +19,17 @@
 				border: none;
 				background-color: transparent;
 				color: var(--primary-text-color);
-				opacity: 0.5;
-				transition: opacity 500ms;
+				opacity: 0.6;
+				transition: opacity 500ms, color 300ms;
 			}
 
 			.tab:hover {
 				cursor: pointer;
+			}
+
+			.tab:focus {
+				color: #fff;
+				opacity: 1;
 			}
 
 			.iron-selected {
@@ -41,7 +46,7 @@
 		<section>
 			<iron-selector selected="{{tab}}" attr-for-selected="tabname" role="tablist">
 				<template is="dom-repeat" items="{{tabs}}" as="tabName">
-					<button class="tab" tabname="[[tabName]]" role="tab" aria-label$="[[tabName]]">[[tabName]]</button>
+					<button class="tab" tabname="[[tabName]]" role="tab" aria-label$="[[tabName]]" on-tap="blur">[[tabName]]</button>
 				</template>
 			</iron-selector>
 			<neon-animated-pages
@@ -72,6 +77,10 @@
 
 			_setInitialTab: function(newTabs, oldTabs) {
 				this.tab = newTabs[0];
+			},
+
+			blur: function(e) {
+				e.target.blur();
 			}
 
 		});
