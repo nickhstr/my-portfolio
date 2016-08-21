@@ -7,16 +7,27 @@
 				margin: 2em 0.1em;
 			}
 
+			.graphic {
+				width: 40vw;
+				height: 30vw;
+			}
+
 			article {
-				display: block;
 				width: 55vw;
 				height: 30vw;
 				overflow: hidden;
 				padding: 0 16px;
 			}
 
-			h3 {
-				font-size: 2.5em;
+			.about {
+				height: 100%;
+			}
+
+			h3, h4, .description {
+				color: var(--primary-text-color);
+			}
+
+			h3, h4 {
 				margin: 0;
 				text-transform: uppercase;
 				white-space: nowrap;
@@ -24,8 +35,16 @@
 				text-overflow: ellipsis;
 			}
 
-			p {
-				color: var(--secondary-text-color);
+			h3 {
+				font-size: 2.5em;
+			}
+
+			h4 {
+				font-size: 1em;
+			}
+
+			.description {
+				opacity: 0.8;
 				font-weight: 300;
 				font-size: 2em;
 				margin: 0;
@@ -37,28 +56,33 @@
 					font-size: 2em;
 				}
 
-				p {
+				h4 {
+					font-size: 0.8em;
+				}
+
+				.description {
 					font-size: 1.5em;
 				}
 			}
-
-			
-			@media (max-width: 640px) {
+			@media (max-width: 650px) {
 				h3 {
 					font-size: 1.5em;
 				}
 
-				p {
+				h4 {
+					font-size: 0.5em;
+				}
+
+				.description {
 					font-size: 1.2em;
 				}
 			}
-
 			@media (max-width: 500px) {
 				h3 {
 					font-size: 1.1em;
 				}
 
-				p {
+				.description {
 					font-size: 0.8em;
 				}
 			}
