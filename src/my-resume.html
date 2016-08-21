@@ -1,11 +1,18 @@
 <link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
 <link rel="import" href="my-tab-selector.html">
+<link rel="import" href="my-tabview.html">
 <dom-module id="my-resume">
 	<template>
 		<style></style>
+		<iron-ajax
+			auto
+			url="../data/resume.json"
+			handle-as="json"
+			on-response="resumeResponse"></iron-ajax>
 		<my-tab-selector tabs="[[resumeTabs]]">
-			<div tabview="experience">Experience Section</div>
-			<div tabview="education">Education Section</div>
+			<my-tabview tabview="education" items="[[education]]"></my-tabview>
+			<my-tabview tabview="experience" items="[[experience]]"></my-tabview>
 		</my-tab-selector>
 	</template>
 	<script>
@@ -16,8 +23,22 @@
 			properties: {
 				resumeTabs: {
 					type: Array,
-					value: ['experience', 'education']
+					value: ['education', 'experience']
+				},
+				education: {
+					type: Array,
+					notify: true
+				},
+				experience: {
+					type: Array,
+					notify: true
 				}
+			},
+
+			resumeResponse: function(e) {
+				var response = e.detail.response;
+				this.education = response.education;
+				this.experience = response.experience;
 			}
 
 		});
