@@ -1,0 +1,60 @@
+{
+	"education": [
+		{
+			"name": "Senior Web Developer Nanodegree",
+			"program": "Udacity",
+			"description": "Build on existing front-end skills and master the newest technology.",
+			"date": "May 2016 - Present",
+			"img": "images/udacity_logo.svg",
+			"img_alt": "udacity logo",
+			"base64": ""
+		},
+		{
+			"name": "Front-End Web Developer Nanodegree",
+			"program": "Udacity",
+			"description": "Master front-end skills, building responsive websites optimized for performance.",
+			"date": "Feb 2016 - Mar 2016",
+			"img": "images/udacity_logo.svg",
+			"img_alt": "udacity logo",
+			"base64": ""
+		},
+		{
+			"name": "Certified Associate in Project Management",
+			"program": "Project Management Institute",
+			"description": "Demonstrates a fundamental knowledge of effective project management.",
+			"date": "April 2015",
+			"img": "images/pmi-logo.svg",
+			"img_alt": "project management institute logo",
+			"base64": ""
+		},
+		{
+			"name": "Project Management",
+			"program": "California State University, Chico",
+			"description": "Project managers implement company strategy by delivering on time, under budget",
+			"date": "Aug 2011 - May 2015",
+			"img": "images/chico_logo.png",
+			"img_alt": "california state university chico logo",
+			"base64": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAAXNSR0IArs4c6QAAAAlwSFlzAAALEwAACxMBAJqcGAAAAVlpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IlhNUCBDb3JlIDUuNC4wIj4KICAgPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4KICAgICAgPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIKICAgICAgICAgICAgeG1sbnM6dGlmZj0iaHR0cDovL25zLmFkb2JlLmNvbS90aWZmLzEuMC8iPgogICAgICAgICA8dGlmZjpPcmllbnRhdGlvbj4xPC90aWZmOk9yaWVudGF0aW9uPgogICAgICA8L3JkZjpEZXNjcmlwdGlvbj4KICAgPC9yZGY6UkRGPgo8L3g6eG1wbWV0YT4KTMInWQAAAHRJREFUCB0BaQCW/wMAAAAAXgkcG1cRHDAb/wf90fzy8wNmDSAoPhEWlhUGCAceCQtnGv4FzwIqDQ47BgEDCP8B/rkFAgIIJgwPQQLl9fbA/QH/9v//AHf9AAD45f30uwPG+e7vHwEFxvwAAu/j9fWciu7c3dU0Kv24BXe2AAAAAElFTkSuQmCC"
+		}
+	],
+	"experience": [
+		{
+			"name": "Retail Sales Representative",
+			"program": "Wave Broadband",
+			"description": "Provide excellent customer service, and increase sales.",
+			"date": "Dec 2015 - Present",
+			"img": "images/wave-logo.svg",
+			"img_alt": "wave broadband logo",
+			"base64": ""
+		},
+		{
+			"name": "Xfinity Sales Professional",
+			"program": "Comcast",
+			"description": "Go door-to-door winning customers' business.",
+			"date": "May 2015 - Dec 2015",
+			"img": "images/Comcast_Logo.svg",
+			"img_alt": "Comcast logo",
+			"base64": ""
+		}
+	]
+}
