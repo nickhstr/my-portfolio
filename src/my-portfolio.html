@@ -1,7 +1,7 @@
 <link rel="import" href="../bower_components/polymer/polymer.html">
 <link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
 <link rel="import" href="my-tab-selector.html">
-<link rel="import" href="my-projects.html">
+<link rel="import" href="my-tabview.html">
 <dom-module id="my-portfolio">
 	<template>
 		<style></style>
@@ -11,8 +11,9 @@
 			handle-as="json"
 			on-response="projectsResponse"></iron-ajax>
 		<my-tab-selector tabs="[[portfolioTabs]]">
-			<my-projects tabview="swdnd" projects="[[swdndProjects]]"></my-projects>
-			<my-projects tabview="fend" projects="[[fendProjects]]"></my-projects>
+			<my-tabview tabview="swdnd" items="[[swdndProjects]]"></my-tabview>
+			<my-tabview tabview="fend" items="[[fendProjects]]"></my-tabview>
+			<my-tabview tabview="fcc" items="[[fccProjects]]"></my-tabview>
 		</my-tab-selector>
 	</template>
 	<script>
@@ -23,7 +24,7 @@
 			properties: {
 				portfolioTabs: {
 					type: Array,
-					value: ['swdnd', 'fend']
+					value: ['swdnd', 'fend', 'fcc']
 				},
 				swdndProjects: {
 					type: Array,
@@ -32,13 +33,18 @@
 				fendProjects: {
 					type: Array,
 					notify: true
+				},
+				fccProjects: {
+					type: Array,
+					notify: true
 				}
 			},
 
 			projectsResponse: function(e) {
-				var response = e.detail.response.projects;
+				var response = e.detail.response;
 				this.swdndProjects = response.swdnd;
 				this.fendProjects = response.fend;
+				this.fccProjects = response.fcc;
 			}
 
 		});
