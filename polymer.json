@@ -7,6 +7,10 @@
 		"src/my-about.html",
 		"data/projects.json",
 		"data/resume.json",
-		"data/about.json"
+		"data/about.json",
+		"images/Comcast_Logo.svg",
+		"images/pmi-logo.svg",
+		"images/udacity_logo.svg",
+		"images/wave-logo.svg"
 	]
 }
