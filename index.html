@@ -3,10 +3,15 @@
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+		<meta name="apple-mobile-web-app-title" content="Nick's Portfolio">
+		<meta name="format-detection" content="telephone=no">
+		<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+		<link rel="manifest" href="manifest.json">
 		<title>Nick Hester</title>
-		<!-- <link rel="manifest" href="manifest.json"> -->
 		<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400" rel="stylesheet">
-		<script src="../bower_components/web-animations-js/web-animations.min.js"></script>
+		<script src="bower_components/web-animations-js/web-animations.min.js"></script>
 		<link rel="import" href="src/my-app.html">
 		<style>
 			body {
@@ -23,14 +28,10 @@
 	<body unresolved>
 		<my-app></my-app>
 		<script>
-			(function(){
-				var webComponentsSupported = ('regiesterElement' in document && 'import' in document.createElement('link') && 'content' in document.createElement('template'));
-				if (!webComponentsSupported) {
-					var script = document.createElement('script');
-					script.src = 'bower_components/webcomponentsjs/webcomponents.min.js';
-					document.head.appendChild(script);
-				}
-			})();
+			if ('serviceWorker' in navigator) {
+		  	navigator.serviceWorker.register('/service-worker.js');
+			}
 		</script>
+
 	</body>
 </html>
