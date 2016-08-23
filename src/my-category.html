@@ -1,3 +1,4 @@
+<!-- MAIN VIEW SELECTOR: Home view category selectors -->
 <link rel="import" href="../bower_components/polymer/polymer.html">
 <dom-module id="my-category">
 	<template>
@@ -31,7 +32,7 @@
 				}
 			}
 		</style>
-		<h2 tabindex$="[[index]]" on-keydown="keydownClick" role="button">[[title]]</h2>
+		<h2 tabindex$="[[index]]" on-keydown="keydownClick" role="button">[[mainTitle]]</h2>
 	</template>
 	<script>
 		Polymer({
@@ -39,7 +40,7 @@
 			is: 'my-category',
 
 			properties: {
-				title: {
+				mainTitle: {
 					type: String,
 					value: 'title',
 					notify: true
@@ -60,7 +61,7 @@
 					notify: true
 				}
 			},
-
+			// Handler for return key or space key events, specifically for accessibility purposes
 			keydownClick: function(e) {
 				if (e.which === 13 || e.which === 32) {
 					e.target.click();

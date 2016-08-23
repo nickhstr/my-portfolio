@@ -1,10 +1,10 @@
+<!-- RESUME VIEW: Fetches and injects resume data -->
 <link rel="import" href="../bower_components/polymer/polymer.html">
 <link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
 <link rel="import" href="my-tab-selector.html">
 <link rel="import" href="my-tabview.html">
 <dom-module id="my-resume">
 	<template>
-		<style></style>
 		<iron-ajax
 			auto
 			url="../data/resume.json"
@@ -34,7 +34,7 @@
 					notify: true
 				}
 			},
-
+			// Ajax handler exposes reponse to data-binding
 			resumeResponse: function(e) {
 				var response = e.detail.response;
 				this.education = response.education;

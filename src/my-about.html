@@ -1,3 +1,4 @@
+<!-- MY ABOUT VIEW: Includes the about me tab and the contact tab -->
 <link rel="import" href="../bower_components/polymer/polymer.html">
 <link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
 <link rel="import" href="my-tab-selector.html">
@@ -14,10 +15,10 @@
 			<my-tabview tabview="about me" items="[[aboutme]]"></my-tabview>
 			<my-contact
 				tabview="contact"
-				email="[[contact.email]]"
-				phone-link="[[contact.phone.href]]"
-				phone-text="[[contact.phone.readable]]"
-				on-tap="blur"></my-contact>
+				email="nickhstr@gmail.com"
+				phone="+1-209-620-2321"
+				phone-text="(209) 620-2321"
+				focus="[[focus]]"></my-contact>
 		</my-tab-selector>
 	</template>
 	<script>
@@ -34,20 +35,29 @@
 					type: Array,
 					notify: true
 				},
-				contact: {
-					type: Object,
+				focus: {
+					type: Boolean,
+					value: false,
 					notify: true
 				}
 			},
 
+			listeners: {
+				'newtab': '_updateFocus'
+			},
+			// Handler for newtab event fired from my-tab-selector, used to focus first input of contact tab
+			_updateFocus: function(e) {
+				if (e.detail.focus) {
+					this.focus = true;
+				}
+				else {
+					this.focus = false;
+				}
+			},
+			// Ajax response handler, exposing response to data-binding
 			aboutResponse: function(e) {
 				var response = e.detail.response;
 				this.aboutme = response.aboutme;
-				this.contact = response.contact;
-			},
-
-			blur: function(e) {
-				e.target.blur();
 			}
 
 		});

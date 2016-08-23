@@ -1,3 +1,4 @@
+<!-- APP SHELL: Handles the app's business logic -->
 <link rel="import" href="../bower_components/polymer/polymer.html">
 <link rel="import" href="../bower_components/neon-animation/neon-animated-pages.html">
 <link rel="import" href="../bower_components/neon-animation/animations/fade-in-animation.html">
@@ -10,19 +11,14 @@
 			:host {
 				--primary-text-color: #ccc;
 				--primary-padding: 20px;
+				--primary-color: var(--primary-text-color);
+				--error-color: #fff;
 				color: var(--primary-text-color);
 			}
 
 			main {
 				min-height: 100vh;
 				min-width: 100vw;
-			}
-
-			.tab {
-				display: inline-block;
-				font-size: 2em;
-				text-transform: uppercase;
-				margin: 0.3em;
 			}
 
 
@@ -38,11 +34,11 @@
 				}
 		</style>
 		<main>
-			<my-header id="mainTitle" title="Nick Hester"></my-header>
+			<my-header id="mainTitle" main-title="Nick Hester"></my-header>
 			<nav>
-				<my-category title="portfolio" on-tap="navigate"></my-category>
-				<my-category title="resume" on-tap="navigate"></my-category>
-				<my-category title="about" on-tap="navigate"></my-category>
+				<my-category main-title="portfolio" on-tap="navigate"></my-category>
+				<my-category main-title="resume" on-tap="navigate"></my-category>
+				<my-category main-title="about" on-tap="navigate"></my-category>
 			</nav>
 			<neon-animated-pages
 			selected="[[page]]"
@@ -62,17 +58,20 @@
 			is: 'my-app',
 
 			properties: {
+				// Current page, used for a sort of non-url routing
 				page: {
 					type: String,
 					value: '',
 					notify: true,
 					observer: '_pageChanged'
 				},
+				// Boolean to check if the current page's naviation selector has animated to the top
 				upTop: {
 					type: Boolean,
 					value: false,
 					notify: true
 				},
+				// Holds value for category selectors' horizontal offset, used for animation
 				offset: {
 					type: String,
 					notify: true
@@ -82,6 +81,7 @@
 					value: [],
 					notify: true
 				},
+				// Animation frames and options for the header
 				headerAnimationData: {
 					value: {
 						keyframes: {
@@ -97,14 +97,14 @@
 					notify: true
 				}
 			},
-
+			// Lazy-load the major sections of the app, to help improve initial load
 			_pageChanged: function(newPage, oldPage) {
 				if (newPage) {
 					this.importHref(
 						this.resolveUrl('my-' + newPage + '.html'), null, null, true);
 				}
 			},
-
+			// When things are ready, animate the elements into view
 			ready: function() {
 				var header = this.$.mainTitle.children[0];
 				this.categories = document.querySelectorAll('my-category');
@@ -133,7 +133,7 @@
 					});
 				}
 			},
-
+			// Animation function to run when a category is selected
 			navigate: function(e) {
 				var el = e.target,
 					vert = e.target.parentElement.vertical,
@@ -149,7 +149,7 @@
 				}
 
 				if (this.upTop === false) {
-					this.setPage(e.target.parentElement.title);
+					this.setPage(e.target.parentElement.mainTitle);
 					header.animate(this.headerAnimationData.keyframes, {
 						duration: 300,
 						easing: 'ease',
@@ -209,7 +209,7 @@
 					this.upTop = false;
 				}
 			},
-
+			// Update page when a new view is requested
 			setPage: function(page) {
 				this.page = page || '';
 			}

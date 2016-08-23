@@ -1,54 +1,189 @@
+<!-- CONTACT TAB: Subview for contact me -->
 <link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../bower_components/paper-input/paper-textarea.html">
 <dom-module id="my-contact">
 	<template>
 		<style>
 			section {
-				width: 100vw;
-				display: flex;
-				flex-wrap: wrap;
+				display: block;
 				margin: 2em 0.1em;
 			}
 
-			a {
-				text-decoration: none;
-				color: var(--primary-text-color);
+			h3, .phone {
 				font-size: 4em;
 				font-weight: 300;
+			}
+
+			h3, a {
+				margin: 0;
+				color: var(--primary-text-color);
+			}
+
+			a {
+				display: block;
+				text-decoration: none;
+				text-transform: uppercase;
 				transition: opacity 300ms;
-				width: 100%;
-				margin: 0.3em auto;
+				margin-top: 1em;
+				font-size: 2.5em;
 			}
 
 			a:focus, a:hover {
 				opacity: 0.7;
 			}
 
+			paper-input, paper-textarea {
+				width: 500px;
+			}
+
 
 			@media (max-width: 600px) {
-				a {
+				h3, .phone {
 					font-size: 3em;
 				}
-			}
-			@media (max-width: 450px) {
-				a {
-					font-size: 2.5em;
-				}
-			}
-			@media (max-width: 380px) {
 				a {
 					font-size: 2em;
 				}
+				paper-input, paper-textarea {
+					width: 90vw;
+				}
+			}
+			@media (max-width: 450px) {
+				h3, .phone {
+					font-size: 2.5em;
+				}
+				a {
+					font-size: 1.75em;
+				}
+			}
+			@media (max-width: 380px) {
+				h3, .phone {
+					font-size: 2em;
+				}
+				a {
+					font-size: 1.5em;
+				}
 			}
 		</style>
-		<section tabview="contact">
-			<a href$="mailto:[[email]]?subject=Awesome Career Opportunity" target="_blank" on-tap="blur">[[email]]</a>
-			<a href$="tel:[[phoneLink]]">[[phoneText]]</a>
+		<section>
+			<h3>[[email]]</h3>
+			<paper-input
+				id="subject"
+				type="text"
+				required
+				label="subject"
+				auto-validate
+				value="{{subject}}"
+				invalid={{invalidSubject}}
+				error-message="Needs a subject"
+				placeholder="Awesome Portfolio"></paper-input>
+			<paper-textarea
+				id="message"
+				type="text"
+				required
+				label="message"
+				value="{{message}}"
+				invalid="{{invalidMessage}}"
+				error-message="Needs a message"
+				placeholder="This page looks great!"
+				on-blur="validateMessage"></paper-textarea>
+			<a id="submit" href$="[[emailOptions]]" target="_blank" on-tap="blur">Submit</a>
+		</section>
+		<section>
+			<a class="phone" href$="tel:[[phone]]" on-tap="blur">[[phoneText]]</a>
 		</section>
 	</template>
 	<script>
 		Polymer({
 
-			is: 'my-contact'
+			is: 'my-contact',
+
+			properties: {
+				focus: {
+					type: Boolean,
+					value: false,
+					notify: true,
+					observer: '_focus'
+				},
+				email: {
+					type: String,
+					notify: true
+				},
+				emailOptions: {
+					type: String,
+					value: '',
+					notify: true
+				},
+				phone: {
+					type: String,
+					notify: true
+				},
+				phoneText: {
+					type: String,
+					notify: true
+				},
+				canSubmit: {
+					type: Boolean,
+					value: false,
+					notify: true
+				},
+				message: {
+					observer: '_checkMessage'
+				},
+				invalidMessage: {
+					notify: true
+				}
+			},
+
+			observers: ['_validator(subject, invalidSubject, message, invalidMessage)'],
+			// If newFocus is true, focus first element
+			_focus: function(newFocus, oldFocus) {
+				if (newFocus) {
+					this.$.subject.focus();
+				}
+			},
+			// Don't invalidate message immediately if it hasn't been selected yet
+			_checkMessage: function(newMes, oldMes) {
+				if (newMes === '' && oldMes === '') {
+					return;
+				}
+				else {
+					this.validateMessage();
+				}
+			},
+			// Unless inputs are valid and have some text, submit link will not work
+			_validator: function(subject, invalidSubject, message, invalidMessage) {
+				if (subject !== '' && invalidSubject === false
+					&& message !== '' && invalidMessage === false) {
+					this.emailOptions = 'mailto:nickhstr@gmail.com?subject=' + subject + '&body=' + message;
+					this.canSubmit = true;
+				}
+				else {
+					this.emailOptions = '';
+					this.canSubmit = false;
+				}
+			},
+			// If message has some text, it is valid
+			validateMessage: function() {
+				if (this.message) {
+					this.$.message.invalid = false;
+				}
+				else {
+					this.$.message.invalid = true;
+				}
+			},
+			// Prevent immediate validation for autofocused input
+			ready: function() {
+				this.canSubmit = false;
+			},
+			// Blur to remove focus's styling after focused element is selected
+			blur: function(e) {
+				if (!this.canSubmit && e.target.id === 'submit') {
+					e.preventDefault();
+				}
+				e.target.blur();
+			}
 
 		});
 	</script>

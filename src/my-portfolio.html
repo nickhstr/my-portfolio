@@ -1,10 +1,10 @@
+<!-- PORTFOLIO VIEW: Fetches and injects projects data -->
 <link rel="import" href="../bower_components/polymer/polymer.html">
 <link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
 <link rel="import" href="my-tab-selector.html">
 <link rel="import" href="my-tabview.html">
 <dom-module id="my-portfolio">
 	<template>
-		<style></style>
 		<iron-ajax
 			auto
 			url="../data/projects.json"
@@ -39,7 +39,7 @@
 					notify: true
 				}
 			},
-
+			// Ajax handler, exposing response to data-binding
 			projectsResponse: function(e) {
 				var response = e.detail.response;
 				this.swdndProjects = response.swdnd;

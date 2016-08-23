@@ -1,3 +1,4 @@
+<!-- REUSABLE TAB SELECTOR: Used for subviews -->
 <link rel="import" href="../bower_components/polymer/polymer.html">
 <link rel="import" href="../bower_components/iron-selector/iron-selector.html">
 <link rel="import" href="../bower_components/neon-animation/neon-animated-pages.html">
@@ -66,7 +67,8 @@
 			properties: {
 				tab: {
 					type: String,
-					notify: true
+					notify: true,
+					observer: '_newTab'
 				},
 				tabs: {
 					type: Array,
@@ -74,11 +76,20 @@
 					observer: '_setInitialTab'
 				}
 			},
-
+			// If selected tab is contact, fire event for focusing contact's first input
+			_newTab: function(newTab, oldTab) {
+				if (newTab === 'contact') {
+					this.fire('newtab', {focus: true});
+				}
+				else {
+					this.fire('newtab', {focus: false});
+				}
+			},
+			// Set first tab as initially selected tab
 			_setInitialTab: function(newTabs, oldTabs) {
 				this.tab = newTabs[0];
 			},
-
+			// Blur to remove focus's styling after focused element is selected
 			blur: function(e) {
 				e.target.blur();
 			}

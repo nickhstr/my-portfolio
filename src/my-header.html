@@ -1,3 +1,4 @@
+<!-- MAIN HEADER -->
 <link rel="import" href="../bower_components/polymer/polymer.html">
 <link rel="import" href="my-logo.html">
 <dom-module id="my-header">
@@ -36,13 +37,21 @@
 		</style>
 		<header>
 			<my-logo></my-logo>
-			<h1>[[title]]</h1>
+			<h1>[[mainTitle]]</h1>
 		</header>
 	</template>
 	<script>
 		Polymer({
 
-			is: 'my-header'
+			is: 'my-header',
+
+			properties: {
+				mainTitle: {
+					type: String,
+					value: 'Header Title',
+					notify: true
+				}
+			}
 
 		});
 	</script>

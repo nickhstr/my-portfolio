@@ -1,3 +1,4 @@
+<!-- REUSABLE TAB VIEW: Default tab view for each category -->
 <link rel="import" href="../bower_components/polymer/polymer.html">
 <link rel="import" href="../bower_components/iron-image/iron-image.html">
 <link rel="import" href="my-tabview-style.html">
@@ -64,6 +65,7 @@
 		<template is="dom-repeat" items="[[items]]">
 			<section>
 				<div class="graphic">
+				<!-- If the image also serves as a link -->
 				<template is="dom-if" if="[[item.url]]">
 					<a class="live-url" href$="[[item.url]]" target="_blank" on-tap="blur">
 						<iron-image
@@ -75,6 +77,7 @@
 						sizing="cover"></iron-image>
 					</a>
 				</template>
+				<!-- If the image is just for presentation -->
 				<template is="dom-if" if="[[!item.url]]">
 					<iron-image
 					placeholder$="[[item.base64]]"
@@ -85,19 +88,23 @@
 					sizing="cover"></iron-image>
 				</template>
 				</div>
+				<!-- If item is a project -->
 				<template is="dom-if" if="[[item.program]]">
 					<article>
 						<h3>[[item.name]]</h3>
 						<h4>[[item.program]]</h4>
 						<p class="description">[[item.description]]</p>
+						<!-- If github link present -->
 						<template is="dom-if" if="[[item.github]]">
 							<a class="if-detail github-url" href$="[[item.github]]" target="_blank" on-tap="blur">View Source Code</a>
 						</template>
+						<!-- If date data present -->
 						<template is="dom-if" if="[[item.date]]">
 							<p class="if-detail">[[item.date]]</p>
 						</template>
 					</article>
 				</template>
+				<!-- If item is only descriptive -->
 				<template is="dom-if" if="[[!item.program]]">
 					<article class="about">
 						<template is="dom-repeat" items="[[item.description]]" as="sub">
@@ -118,7 +125,7 @@
 				value: [],
 				notify: true
 			},
-
+			// Blur to remove focus's styling after focused element is selected
 			blur: function(e) {
 				e.target.blur();
 			}
