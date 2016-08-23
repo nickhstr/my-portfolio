@@ -1,5 +1,5 @@
 # My Portfolio Page
-My personal portfolio page, and final project for the Senior Web Developer Nanodegree
+My personal portfolio page, and final project for the Senior Web Developer Nanodegree. [Check it out!](https://nickhstr.com/)
 
 ## Features
 
