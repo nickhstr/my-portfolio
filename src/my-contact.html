@@ -140,7 +140,10 @@
 			// If newFocus is true, focus first element
 			_focus: function(newFocus, oldFocus) {
 				if (newFocus) {
-					this.$.subject.focus();
+					var self = this;
+					setTimeout(function() {
+						self.$.subject.focus();
+					}, 300);
 				}
 			},
 			// Don't invalidate message immediately if it hasn't been selected yet
