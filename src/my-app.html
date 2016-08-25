@@ -85,7 +85,7 @@
 				headerAnimationData: {
 					value: {
 						keyframes: {
-							transform: ['translate(-50vw, 15vh)', 'translate(0px, 15vh)'],
+							transform: ['translate(-50vw, 10vh)', 'translate(0px, 10vh)'],
 							opacity: [0, 1]
 						},
 						options: {
@@ -119,7 +119,7 @@
 				header.animate(this.headerAnimationData.keyframes, this.headerAnimationData.options);
 
 				for (var i = 0; i < this.categories.length; i ++) {
-					this.categories[i].vertical = ((i * 1.4)+ 5) + 'em';
+					this.categories[i].vertical = ((i * 1.4)+ 4) + 'em';
 					this.categories[i].delay = i * 100;
 
 					this.categories[i].children[0].animate({
@@ -139,7 +139,9 @@
 					vert = e.target.parentElement.vertical,
 					header = this.$.mainTitle.children[0],
 					others = [];
-				el.blur();
+				setTimeout(function() {
+					el.blur();
+				}, 100);
 
 				for (var i = 0; i < this.categories.length; i++) {
 					if (this.categories[i] !== e.target.parentElement) {

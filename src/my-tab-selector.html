@@ -91,7 +91,9 @@
 			},
 			// Blur to remove focus's styling after focused element is selected
 			blur: function(e) {
-				e.target.blur();
+				setTimeout(function() {
+					e.target.blur();
+				}, 100);
 			}
 
 		});
