@@ -25,7 +25,7 @@ My portfolio is a full-fledged progressive web app, installable to a user's home
 Steps to run this app locally:
 
 - `git clone https://github.com/nickhstr/my-portfolio.git` and cd into the directory
-- `npm install -g polymer-cli@0.12.0` Be sure to include the version number. The latest update has some broken functionality.
+- `npm install -g polymer-cli`
 - `bower install` to install dependencies
 - Run `polymer build`
 - Once the build process finishes, `cd build/unbundled`

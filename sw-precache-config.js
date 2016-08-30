@@ -11,6 +11,7 @@ module.exports = {
   staticFileGlobs: [
     '/index.html',
     '/manifest.json',
+    '/favicon.ico',
     '/bower_components/web-animations-js/web-animations.min.js',
     '/bower_components/webcomponentsjs/webcomponents-lite.min.js'
   ],
