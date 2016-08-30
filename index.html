@@ -12,46 +12,7 @@
 		<link rel="manifest" href="manifest.json">
 		<title>Nick Hester</title>
 		<script src="bower_components/web-animations-js/web-animations.min.js"></script>
-		<script>
-      window.Polymer = {
-        dom: 'shadow',
-        lazyRegister: true
-      };
-
-      (function() {
-        'use strict';
-
-        var onload = function() {
-          if (!window.HTMLImports) {
-            document.dispatchEvent(
-              new CustomEvent('WebComponentsReady', {bubbles: true})
-            );
-          }
-        };
-
-        var webComponentsSupported = (
-          'registerElement' in document
-          && 'import' in document.createElement('link')
-          && 'content' in document.createElement('template')
-        );
-
-        if (!webComponentsSupported) {
-          var script = document.createElement('script');
-          script.async = true;
-          script.src = '/bower_components/webcomponentsjs/webcomponents-lite.min.js';
-          script.onload = onload;
-          document.head.appendChild(script);
-        } else {
-          onload();
-        }
-      })();
-
-      if ('serviceWorker' in navigator) {
-        window.addEventListener('load', function() {
-          navigator.serviceWorker.register('/service-worker.js');
-        });
-      }
-    </script>
+		<script src="bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
 		<link rel="import" href="src/my-fonts.html">
 		<link rel="import" href="src/my-app.html">
 		<style>
@@ -68,6 +29,11 @@
 	</head>
 	<body unresolved>
 		<my-app></my-app>
+		<script>
+			if ('serviceWorker' in navigator) {
+		  	navigator.serviceWorker.register('/service-worker.js');
+			}
+		</script>
 
 	</body>
 </html>
