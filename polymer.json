@@ -1,16 +1,21 @@
 {
-	"entrypoint": "index.html",
-	"shell": "src/my-app.html",
-	"fragments": [
-		"src/my-portfolio.html",
+  "entrypoint": "index.html",
+  "shell": "src/my-app.html",
+  "fragments": [
+    "src/my-portfolio.html",
 		"src/my-resume.html",
-		"src/my-about.html",
-		"data/projects.json",
-		"data/resume.json",
-		"data/about.json",
-		"images/Comcast_Logo.svg",
-		"images/pmi-logo.svg",
-		"images/udacity_logo.svg",
-		"images/wave-logo.svg"
-	]
+		"src/my-about.html"
+  ],
+  "sourceGlobs": [
+   "src/**/*",
+   "images/*",
+   "icons/*",
+   "bower.json",
+   "data/*"
+  ],
+  "includeDependencies": [
+    "manifest.json",
+    "bower_components/web-animations-js/web-animations.min.js",
+    "bower_components/webcomponentsjs/webcomponents-lite.min.js"
+  ]
 }
