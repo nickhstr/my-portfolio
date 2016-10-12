@@ -104,6 +104,16 @@
 		}
 	],
 	"fcc": [
+	  {
+			"name": "Tic Tac Toe",
+			"program": "Free Code Camp",
+			"description": "A game of tic-tac-toe, against the computer.",
+			"url": "https://nickhstr-tic-tac-toe.herokuapp.com",
+			"github": "https://github.com/nickhstr/tic-tac-toe",
+			"img": "../images/tic-tac-toe.png",
+			"img_alt": "screenshot of Tic Tac Toe",
+			"base64": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABoAAAAQCAYAAAAI0W+oAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAGZSURBVDhPpZS9bsIwEMf/CRAWhAQSA9DHYGZj4wHY+wx9ke5dWSskRraIsVunPgBBKlDEV8Kn6zt8KKiJAfUnnXz/nOXz+Rw7SgPN2/sXXl4/8PO9gfp8pk9/GAdjhNEG2awHx3XwVK+byG0uie5hu93icDjAcRxkMhnk83kTuY1rxrugPc1mM0ynU/YfwVrRaDRCpVJhn6pZLBaoVqusgyBAsViE53msJ5MJarUa+0lYE9ExDQYDzOdzdDod1v1+n2Ptdlv3Ksu6XC6j0WhckiZhPTraAy1OJhyPRzbZH8X2+z37VqiiNPRRGe9MXNtiSVgrWq/XbKvV6uJLhaKpOtE2rD2iBIVCwSjwEfm+z8fWbDaRy+XQ7XZRKpXQarW4Z2nc7FEc0rvd7qpHp9OJzbLfM3pCKvq2Kb2I0gvzSFqQmBCPJWGtiP6dKIquLAxDNtFyC2muFZMwkeVyabwzcS1+r9dTw+FQ6USs03i4R4L4NP77P9JvmtJXV+mFeBQd9wXSNqzXm24Y3SiBXm2ZHvcJ13UtTxDwC2bhkqtFQg3uAAAAAElFTkSuQmCC"
+		},
 		{
 			"name": "Pomodoro Timer",
 			"program": "Free Code Camp",
