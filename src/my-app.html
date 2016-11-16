@@ -21,6 +21,13 @@
 				min-width: 100vw;
 			}
 
+			a {
+				color: var(--primary-text-color);
+				position: fixed;
+				bottom: 20px;
+				left: 20px;
+			}
+
 
 			@media (max-width: 600px) {
 				:host {
@@ -45,7 +52,9 @@
 			attr-for-selected="name"
 			entry-animation="fade-in-animation"
 			exit-animation="fade-out-animation">
-				<section class="home" name="" aria-label="home view"></section>
+				<section class="home" name="" aria-label="home view">
+					<a href="https://nickhstr.herokuapp.com/">checkout my new personal site!</a>
+				</section>
 				<my-portfolio name="portfolio" aria-label="portfolio section"></my-portfolio>
 				<my-resume name="resume" aria-label="resume section"></my-resume>
 				<my-about name="about" aria-label="about section"></my-about>
